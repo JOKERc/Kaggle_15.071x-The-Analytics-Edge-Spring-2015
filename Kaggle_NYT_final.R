@@ -22,6 +22,37 @@ Train = full[1:end,]
 Train$Popular = popular
 Test = full[-(1:end),]
 
+library(tm)
+CorpusHeadline = Corpus(VectorSource(c(Train$Headline,Test$Headline)))
+CorpusHeadline = tm_map(CorpusHeadline, tolower)
+CorpusHeadline = tm_map(CorpusHeadline, PlainTextDocument)
+CorpusHeadline = tm_map(CorpusHeadline,removeNumbers)
+CorpusHeadline = tm_map(CorpusHeadline, removePunctuation)
+CorpusHeadline = tm_map(CorpusHeadline, removeWords, stopwords("english"))
+CorpusHeadline = tm_map(CorpusHeadline, stemDocument)
+dtm = DocumentTermMatrix(CorpusHeadline)
+sparse = removeSparseTerms(dtm, 0.998)
+HeadlineWords = as.data.frame(as.matrix(sparse))
+colnames(HeadlineWords) = make.names(colnames(HeadlineWords))
+
+HeadlineWordsTrain = head(HeadlineWords, nrow(Train))
+HeadlineWordsTest = tail(HeadlineWords, nrow(Test))
+
+library(RWeka)
+
+options(mc.cores=1) # !!
+ngramTokenizer2 <- function(x) NGramTokenizer(x, Weka_control(min = 2, max = 3))
+tdmH = TermDocumentMatrix(CorpusHeadline, control = list(tokenize = ngramTokenizer2))
+
+tdm = removeSparseTerms(tdmH,0.999)
+terms = as.data.frame(as.matrix(tdm))
+terms =data.frame(t(terms))
+HeadtermsTrain =  head(terms,nrow(Train))
+HeadtermsTest = tail(terms,nrow(Test))
+
+findFreqTerms(tdmH,lowfreq = 5)
+
+
 
 ##sparse  single word
 sparse = removeSparseTerms(dtm, 0.998)
