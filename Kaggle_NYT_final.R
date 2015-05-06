@@ -59,20 +59,6 @@ findFreqTerms(tdmT,lowfreq = 5)
 findFreqTerms(dtmH,lowfreq = 16)
 
 #####
-# ... feature select
-agenda+amazon+anoth+appl+allergan+among+attack+ban+bond+british+busi+can+case+center+child+close+colleg+compani+cook+corpor+critic+daili+david+dead+deal+digit+doctor+econom+energi+expect+friday+game+get+girl+group+isi+jpmorgan+join+lawsuit+lesson+comment+dont+expect+facebook+fashion+fear+ferguson+game+goldman+good+health+morn+parent+rais+seek+love+market++mean+microsoft+miss+movi+notebook++now+one+parent+person+phone+polic+power+prepar+problem+push+realli+river+seek+sign+startup+star+swift+target+tell+varieti+voter++weigh+thanksgiv+turn+uber+wall+want+can+like+music+move+read+recap+report+today+war+NewsDesk+SectionName+SubsectionName+WordCount+Weekday+Hour
-
-first.draft.focus+friday.night+hong.kong.protest+insid.trade+reader.respond+taylor.swift++social.media+wall.street+today.polit+wall.st+morn.agenda+
-  agenda+amazon+anoth+appl+busi++comment+dont+expect+facebook+fashion+fear++ferguson+game+goldman+good+health+morn+parent+rais+seek+thanksgiv+turn+uber+wall+want+can+like+music+move+read+recap+report+today+war+NewsDesk+SectionName+SubsectionName+WordCount+Weekday+Hour
-
-
-+taylor.swift+wall.st+wall.street+hong.kong.protest+vegetarian.thanksgiv
-+social.media+report.notebook+reader.respond+open.comment+joan.river
-+joe.wnyc+homeland.recap+good.wife+goldman.sach+friday.night+data.breach
-+comment.necessari+daili.report+big.bank+affair.recap+today.polit
-+morn.agenda
-+appl+amazon+anoth+agenda+can+dont+health+game+facebook
-+today.polit+today+read+vote+uber+trade+thanksgiv+seek+read+war+what+want
 ############
 
 # rf cv
@@ -169,11 +155,7 @@ predgbmtr <- predict(gbmtr, HeadlineWordsTest, type="prob")[,2]
 
 #~~~~~~~~~~~~~~~~
 # submisson
-## LB Best 2
-# pred1 = read.csv("pre455.csv")
-# pre1 = pred1[,2]
-# pred2 = read.csv("pre451.csv")
-# pre2 = pred2[,2] 
+
 
 
 predfinal = (predrf2+predgbmtr+prednne)/3
